@@ -435,12 +435,12 @@ public abstract class Email
                 // find the next space (after the marker)
                 charsetPos += strMarker.length();
                 int intCharsetEnd =
-                    aContentType.toLowerCase().indexOf(" ", charsetPos);
+                        aContentType.toLowerCase().indexOf(" ", charsetPos);
 
                 if (intCharsetEnd != -1)
                 {
                     this.charset =
-                        aContentType.substring(charsetPos, intCharsetEnd);
+                            aContentType.substring(charsetPos, intCharsetEnd);
                 }
                 else
                 {
@@ -531,9 +531,9 @@ public abstract class Email
         if (aPortNumber < 1)
         {
             throw new IllegalArgumentException(
-                "Cannot connect to a port number that is less than 1 ( "
-                    + aPortNumber
-                    + " )");
+                    "Cannot connect to a port number that is less than 1 ( "
+                            + aPortNumber
+                            + " )");
         }
 
         this.smtpPort = Integer.toString(aPortNumber);
@@ -707,7 +707,7 @@ public abstract class Email
      * @since 1.0
      */
     public Email setFrom(String email)
-        throws EmailException
+            throws EmailException
     {
         return setFrom(email, null);
     }
@@ -727,7 +727,7 @@ public abstract class Email
      * @since 1.0
      */
     public Email setFrom(String email, String name)
-        throws EmailException
+            throws EmailException
     {
         return setFrom(email, name, this.charset);
     }
@@ -744,7 +744,7 @@ public abstract class Email
      * @since 1.1
      */
     public Email setFrom(String email, String name, String charset)
-        throws EmailException
+            throws EmailException
     {
         this.fromAddress = createInternetAddress(email, name, charset);
         return this;
@@ -765,7 +765,7 @@ public abstract class Email
      * @since 1.0
      */
     public Email addTo(String email)
-        throws EmailException
+            throws EmailException
     {
         return addTo(email, null);
     }
@@ -785,7 +785,7 @@ public abstract class Email
      * @since 1.3
      */
     public Email addTo(String... emails)
-        throws EmailException
+            throws EmailException
     {
         if (emails == null || emails.length == 0)
         {
@@ -816,7 +816,7 @@ public abstract class Email
      * @since 1.0
      */
     public Email addTo(String email, String name)
-        throws EmailException
+            throws EmailException
     {
         return addTo(email, name, this.charset);
     }
@@ -833,7 +833,7 @@ public abstract class Email
      * @since 1.1
      */
     public Email addTo(String email, String name, String charset)
-        throws EmailException
+            throws EmailException
     {
         this.toList.add(createInternetAddress(email, name, charset));
         return this;
@@ -875,7 +875,7 @@ public abstract class Email
      * @since 1.0
      */
     public Email addCc(String email)
-        throws EmailException
+            throws EmailException
     {
         return this.addCc(email, null);
     }
@@ -895,7 +895,7 @@ public abstract class Email
      * @since 1.3
      */
     public Email addCc(String... emails)
-        throws EmailException
+            throws EmailException
     {
         if (emails == null || emails.length == 0)
         {
@@ -925,7 +925,7 @@ public abstract class Email
      * @since 1.0
      */
     public Email addCc(String email, String name)
-        throws EmailException
+            throws EmailException
     {
         return addCc(email, name, this.charset);
     }
@@ -942,7 +942,7 @@ public abstract class Email
      * @since 1.1
      */
     public Email addCc(String email, String name, String charset)
-        throws EmailException
+            throws EmailException
     {
         this.ccList.add(createInternetAddress(email, name, charset));
         return this;
@@ -984,7 +984,7 @@ public abstract class Email
      * @since 1.0
      */
     public Email addBcc(String email)
-        throws EmailException
+            throws EmailException
     {
         return this.addBcc(email, null);
     }
@@ -1004,7 +1004,7 @@ public abstract class Email
      * @since 1.3
      */
     public Email addBcc(String... emails)
-        throws EmailException
+            throws EmailException
     {
         if (emails == null || emails.length == 0)
         {
@@ -1034,7 +1034,7 @@ public abstract class Email
      * @since 1.0
      */
     public Email addBcc(String email, String name)
-        throws EmailException
+            throws EmailException
     {
         return addBcc(email, name, this.charset);
     }
@@ -1051,7 +1051,7 @@ public abstract class Email
      * @since 1.1
      */
     public Email addBcc(String email, String name, String charset)
-        throws EmailException
+            throws EmailException
     {
         this.bccList.add(createInternetAddress(email, name, charset));
         return this;
@@ -1093,7 +1093,7 @@ public abstract class Email
      * @since 1.0
      */
     public Email addReplyTo(String email)
-        throws EmailException
+            throws EmailException
     {
         return this.addReplyTo(email, null);
     }
@@ -1113,7 +1113,7 @@ public abstract class Email
      * @since 1.0
      */
     public Email addReplyTo(String email, String name)
-        throws EmailException
+            throws EmailException
     {
         return addReplyTo(email, name, this.charset);
     }
@@ -1130,7 +1130,7 @@ public abstract class Email
      * @since 1.1
      */
     public Email addReplyTo(String email, String name, String charset)
-        throws EmailException
+            throws EmailException
     {
         this.replyList.add(createInternetAddress(email, name, charset));
         return this;
@@ -1332,28 +1332,28 @@ public abstract class Email
             if (this.toList.size() > 0)
             {
                 this.message.setRecipients(
-                    Message.RecipientType.TO,
-                    this.toInternetAddressArray(this.toList));
+                        Message.RecipientType.TO,
+                        this.toInternetAddressArray(this.toList));
             }
 
             if (this.ccList.size() > 0)
             {
                 this.message.setRecipients(
-                    Message.RecipientType.CC,
-                    this.toInternetAddressArray(this.ccList));
+                        Message.RecipientType.CC,
+                        this.toInternetAddressArray(this.ccList));
             }
 
             if (this.bccList.size() > 0)
             {
                 this.message.setRecipients(
-                    Message.RecipientType.BCC,
-                    this.toInternetAddressArray(this.bccList));
+                        Message.RecipientType.BCC,
+                        this.toInternetAddressArray(this.bccList));
             }
 
             if (this.replyList.size() > 0)
             {
                 this.message.setReplyTo(
-                    this.toInternetAddressArray(this.replyList));
+                        this.toInternetAddressArray(this.replyList));
             }
 
 
@@ -1391,7 +1391,7 @@ public abstract class Email
      * @throws EmailException the sending failed
      */
     public String sendMimeMessage()
-       throws EmailException
+            throws EmailException
     {
         EmailUtils.notNull(this.message, "MimeMessage has not been created yet");
 
@@ -1403,9 +1403,9 @@ public abstract class Email
         catch (Throwable t)
         {
             String msg = "Sending the email to the following server failed : "
-                + this.getHostName()
-                + ":"
-                + this.getSmtpPort();
+                    + this.getHostName()
+                    + ":"
+                    + this.getSmtpPort();
 
             throw new EmailException(msg, t);
         }
@@ -1583,10 +1583,10 @@ public abstract class Email
      * @since 1.0
      */
     public void setPopBeforeSmtp(
-        boolean newPopBeforeSmtp,
-        String newPopHost,
-        String newPopUsername,
-        String newPopPassword)
+            boolean newPopBeforeSmtp,
+            String newPopHost,
+            String newPopUsername,
+            String newPopPassword)
     {
         this.popBeforeSmtp = newPopBeforeSmtp;
         this.popHost = newPopHost;
@@ -1647,11 +1647,11 @@ public abstract class Email
     }
 
     /**
-    * Is the server identity checked as specified by RFC 2595
-    *
-    * @return true if the server identity is checked
-    * @since 1.3
-    */
+     * Is the server identity checked as specified by RFC 2595
+     *
+     * @return true if the server identity is checked
+     * @since 1.3
+     */
     public boolean isSSLCheckServerIdentity()
     {
         return sslCheckServerIdentity;
@@ -1702,11 +1702,11 @@ public abstract class Email
     }
 
     /**
-    * If partial sending of email enabled.
-    *
-    * @return true if sending partial email is enabled
-    * @since 1.3.2
-    */
+     * If partial sending of email enabled.
+     *
+     * @return true if sending partial email is enabled
+     * @since 1.3.2
+     */
     public boolean isSendPartial()
     {
         return sendPartial;
@@ -1875,7 +1875,7 @@ public abstract class Email
      * @throws EmailException Thrown when the supplied address, name or charset were invalid.
      */
     private InternetAddress createInternetAddress(String email, String name, String charsetName)
-        throws EmailException
+            throws EmailException
     {
         InternetAddress address = null;
 

@@ -2,11 +2,9 @@ package org.apache.commons.mail;
 
 import org.junit.Before;
 import org.junit.Test;
-
 import javax.mail.Message;
 import javax.mail.Session;
 import java.util.Date;
-import java.util.Properties;
 
 import static org.junit.Assert.*;
 
@@ -19,7 +17,56 @@ public class EmailTest {
         email = new EmailConcrete();
     }
     //----------------------------------------------------------------------------------//
+    @Test
+    public void testGetSocketConnectionTimeout() {
+        int timeout = 30000;
+        email.setSocketConnectionTimeout(timeout);
+        assertEquals(timeout, email.getSocketConnectionTimeout());
+    }
+    //----------------------------------------------------------------------------------//
 
+    @Test
+    public void testSetFrom() throws Exception {
+        email.setFrom("from@example.com");
+        assertNotNull(email.getFromAddress());
+    }
+    //----------------------------------------------------------------------------------//
+    @Test
+    public void testGetSentDate() {
+        Date sentDate = new Date();
+        email.setSentDate(sentDate);
+        assertEquals(sentDate, email.getSentDate());
+    }
+    //----------------------------------------------------------------------------------//
+    @Test
+    public void testGetMailSessionWithDefaultSettings() throws EmailException {
+        email.setHostName("smtp.example.com");
+        Session session = email.getMailSession();
+        assertNotNull("Session should not be null", session);
+        assertEquals("SMTP host should match", "smtp.example.com", session.getProperty("mail.smtp.host"));
+    }
+
+    @Test
+    public void testGetMailSessionWithCustomPort() throws EmailException {
+        email.setHostName("smtp.example.com");
+        email.setSmtpPort(2525);
+        Session session = email.getMailSession();
+        assertEquals("SMTP port should match", "2525", session.getProperty("mail.smtp.port"));
+    }
+
+    @Test
+    public void testGetMailSessionWithAuthentication() throws EmailException {
+        email.setHostName("smtp.example.com");
+        email.setAuthentication("user", "pass");
+        Session session = email.getMailSession();
+        assertTrue("SMTP auth should be true", Boolean.parseBoolean(session.getProperty("mail.smtp.auth")));
+    }
+
+    @Test(expected = EmailException.class)
+    public void testGetMailSessionWithoutHostName() throws EmailException {
+        email.getMailSession();
+    }
+    //----------------------------------------------------------------------------------//
     @Test
     public void testGetHostNameWhenSetExplicitly() {
         EmailConcrete email = new EmailConcrete();
@@ -209,31 +256,6 @@ public class EmailTest {
     public void testAddHeaderWithEmptyValue() {
         email.addHeader("X-Test-Header", "");
     }
-    //----------------------------------------------------------------------------------//
 
-
-    @Test
-    public void testGetMailSession() throws Exception {
-        email.setHostName("smtp.example.com"); // Set a dummy SMTP host name
-        Session session = email.getMailSession();
-        assertNotNull(session);
-    }
-    @Test
-    public void testGetSentDate() {
-        Date sentDate = new Date();
-        email.setSentDate(sentDate);
-        assertEquals(sentDate, email.getSentDate());
-    }
-    @Test
-    public void testGetSocketConnectionTimeout() {
-        int timeout = 30000;
-        email.setSocketConnectionTimeout(timeout);
-        assertEquals(timeout, email.getSocketConnectionTimeout());
-    }
-    @Test
-    public void testSetFrom() throws Exception {
-        email.setFrom("from@example.com");
-        assertNotNull(email.getFromAddress());
-    }
 
 }

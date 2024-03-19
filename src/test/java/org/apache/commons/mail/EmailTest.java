@@ -1,10 +1,12 @@
 package org.apache.commons.mail;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import javax.mail.Message;
 import javax.mail.Session;
 import java.util.Date;
+import java.util.Properties;
 
 import static org.junit.Assert.*;
 
@@ -15,6 +17,10 @@ public class EmailTest {
     @Before
     public void setUp() {
         email = new EmailConcrete();
+    }
+    @After
+    public void tearDown() {
+        email = null; //To ensure the reference is dropped after each test
     }
     //----------------------------------------------------------------------------------//
     @Test
@@ -77,6 +83,18 @@ public class EmailTest {
     public void testGetHostNameWhenNotSet() {
         EmailConcrete email = new EmailConcrete();
         assertNull("Expected getHostName() to return null when no hostname is set", email.getHostName());
+    }
+    @Test
+    public void testGetHostNameFromSession() {
+        Properties properties = new Properties();
+        properties.put("mail.smtp.host", "smtp.example.com");
+        Session session = Session.getInstance(properties);
+
+        email.setMailSession(session); // This method or approach depends on how you can actually set a session in EmailConcrete
+
+        String hostName = email.getHostName();
+        assertNotNull("Host name should not be null when retrieved from session", hostName);
+        assertEquals("smtp.example.com", hostName);
     }
 
     //----------------------------------------------------------------------------------//

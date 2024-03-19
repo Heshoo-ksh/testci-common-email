@@ -46,6 +46,7 @@ import javax.naming.NamingException;
  * sender's email &amp; name, receiver's email &amp; name, subject, and the
  * sent date.
  * <p>
+ * <p>addbbc
  * Subclasses are responsible for setting the message body.
  *
  * @since 1.0

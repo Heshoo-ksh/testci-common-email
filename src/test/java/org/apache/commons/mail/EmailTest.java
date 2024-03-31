@@ -30,7 +30,6 @@ public class EmailTest {
         assertEquals(timeout, email.getSocketConnectionTimeout());
     }
     //----------------------------------------------------------------------------------//
-
     @Test
     public void testSetFrom() throws Exception {
         email.setFrom("from@example.com");
@@ -51,7 +50,6 @@ public class EmailTest {
         assertNotNull("Session should not be null", session);
         assertEquals("SMTP host should match", "smtp.example.com", session.getProperty("mail.smtp.host"));
     }
-
     @Test
     public void testGetMailSessionWithCustomPort() throws EmailException {
         email.setHostName("smtp.example.com");
@@ -59,7 +57,6 @@ public class EmailTest {
         Session session = email.getMailSession();
         assertEquals("SMTP port should match", "2525", session.getProperty("mail.smtp.port"));
     }
-
     @Test
     public void testGetMailSessionWithAuthentication() throws EmailException {
         email.setHostName("smtp.example.com");
@@ -96,7 +93,6 @@ public class EmailTest {
         assertNotNull("Host name should not be null when retrieved from session", hostName);
         assertEquals("smtp.example.com", hostName);
     }
-
     //----------------------------------------------------------------------------------//
     @Test(expected = IllegalStateException.class)
     public void testBuildMimeMessageTwice() throws Exception {
@@ -212,19 +208,16 @@ public class EmailTest {
         email.addBcc("singlebcc@example.com");
         assertEquals("Expected 1 BCC address", 1, email.getBccAddresses().size());
     }
-
     @Test
     public void testAddBccWithMultipleValidEmails() throws Exception {
         String[] emails  = {"bcc1@example.com","bcc2@example.com"};
         email.addBcc(emails);
         assertEquals("Expected 2 BCC addresses", 2, email.getBccAddresses().size());
     }
-
     @Test(expected = EmailException.class)
     public void testAddBccWithNullEmails() throws Exception {
         email.addBcc((String[]) null);
     }
-
     @Test(expected = EmailException.class)
     public void testAddBccWithEmptyEmails() throws Exception {
         email.addBcc(); // Empty argument list
@@ -241,12 +234,10 @@ public class EmailTest {
         email.addCc(ccEmails);
         assertEquals("Expected 2 CC addresses", 2, email.getCcAddresses().size());
     }
-
     @Test(expected = EmailException.class)
     public void testAddCcWithNullEmails() throws Exception {
         email.addCc((String[]) null);
     }
-
     @Test(expected = EmailException.class)
     public void testAddCcWithEmptyEmails() throws Exception {
         email.addCc();
@@ -274,6 +265,4 @@ public class EmailTest {
     public void testAddHeaderWithEmptyValue() {
         email.addHeader("X-Test-Header", "");
     }
-
-
 }
